@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Settings</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="styles.css" />
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q919W0VJ1S"></script>
+      <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-Q919W0VJ1S');
+      </script>
+    <style> 
+      #games { display: flex; justify-content: center; }
+      #games main { text-align: center; width: 100%; max-width: 900px; margin: 0 auto; }
+      #games main > div { display: inline-block; text-align: center; }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <button type="button" class="nav-btn" onclick="location.href='/start.html'">
+        <img src="media/nav-buttons/home.svg" width="40px" height="40px">
+      </button>
+      <button type="button" class="nav-btn" onclick="window.location.href='/select.html'">
+        <img src="media/nav-buttons/game.svg" width="40px" height="40px">
+      </button>
+      <button type="button" class="nav-btn" onclick="location.href='/search.html'">
+        <img src="media/nav-buttons/search.svg" width="40px" height="40px">
+      </button>
+      <button type="button" class="nav-btn" onclick="location.href='/tools.html'">
+        <img src="media/nav-buttons/tools.svg" width="40px" height="40px">
+      </button>
+      <button type="button" class="nav-btn" aria-current="page" onclick="location.href='/settings.html'">
+        <img src="media/nav-buttons/settings.svg" width="40px" height="40px">
+      </button>
+      <button type="button" class="nav-btn" onclick="location.href='/disclaimer.html'">
+        <img src="media/nav-buttons/disclaimer.svg" width="40px" height="40px">
+      </button>
+    </nav>
+    <div id="games">
+      <main>
+        <h1>Settings:</h1>
+        <div style="margin-top:2rem;">
+          <select id="tabCloaker" style="font-size:1em;padding:0.5em;">
+            <option value="default">Default</option>
+            <option value="google">Google</option>
+            <option value="vocab">Vocabulary.com</option>
+          </select>
+        </div>
+          <div style="height:1.5em;"></div>
+        <script>
+          // Tab cloaker logic for settings page
+          const tabCloaker = document.getElementById('tabCloaker');
+          const favicon = document.querySelector("link[rel~='icon']") || (() => {
+            const link = document.createElement('link');
+            link.rel = 'icon';
+            document.head.appendChild(link);
+            return link;
+          })();
+          function setTabCloak(value) {
+            if (value === 'google') {
+              document.title = 'Google';
+              favicon.href = 'https://www.google.com/favicon.ico';
+            } else if (value === 'vocab') {
+              document.title = 'My Learning | Vocabulary.com';
+              favicon.href = 'https://www.vocabulary.com/favicon.ico';
+            } else {
+              favicon.href = '/favicon.ico';
+            }
+            // Save choice for other pages
+            localStorage.setItem('tabCloaker', value);
+          }
+          tabCloaker.addEventListener('change', e => setTabCloak(e.target.value));
+          // On load, set dropdown and tab
+          const saved = localStorage.getItem('tabCloaker') || 'default';
+          tabCloaker.value = saved;
+          setTabCloak(saved);
+           </script>
+      </main>
+    </div>
+  </body>
+</html>
